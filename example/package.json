@@ -9,10 +9,11 @@
     "expo-status-bar": "~1.3.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-native": "0.68.1",
+    "react-native": "0.63.4",
     "react-native-gesture-handler": "~2.2.0",
     "react-native-pager-view": "5.4.15",
     "react-native-reanimated": "~2.8.0",
+    "recyclerlistview": "git+https://github.com/dwidc/recyclerlistview.git#masonry",
     "react-native-web": "0.17.7",
     "use-debounce": "^5.2.0",
     "use-deep-compare": "^1.1.0"

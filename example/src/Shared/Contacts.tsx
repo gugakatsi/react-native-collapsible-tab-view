@@ -13,6 +13,8 @@ import Animated, {
   useDerivedValue,
 } from 'react-native-reanimated'
 
+import { MasonryLayoutProvider, DataProvider, } from "recyclerlistview/src"
+
 import { useRefresh } from './useRefresh'
 
 type Item = { name: string; number: number }
@@ -81,12 +83,12 @@ class ContactItem extends React.PureComponent<{
         <View style={styles.item}>
           <View style={styles.avatar}>
             <Text style={styles.letter}>
-              {item.name.slice(0, 1).toUpperCase()}
+              {item?.name?.slice(0, 1).toUpperCase()}
             </Text>
           </View>
           <View style={styles.details}>
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.number}>{item.number}</Text>
+            <Text style={styles.name}>{item?.name}</Text>
+            <Text style={styles.number}>{item?.number}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -96,7 +98,7 @@ class ContactItem extends React.PureComponent<{
 
 const ItemSeparator = () => <View style={styles.separator} />
 
-const renderItem = ({ item }: { item: Item }) => <ContactItem item={item} />
+const renderItem = (type, item) => <ContactItem item={item} />
 
 const ListEmptyComponent = () => {
   const { top, height } = Tabs.useHeaderMeasurements()
@@ -125,20 +127,44 @@ const ListEmptyComponent = () => {
   )
 }
 
+export const randomBetween = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+};
+
+
+
 const Contacts: React.FC<{
   emptyContacts?: boolean
   nestedScrollEnabled?: boolean
 }> = ({ emptyContacts, nestedScrollEnabled }) => {
   const [isRefreshing, startRefreshing] = useRefresh()
 
+  console.log('Masonry', Tabs.MasonryListImpl);
+
+  const dataProvider = new DataProvider((r1, r2) => {
+    return r1.number !== r2.number;
+  })
+
+  const layoutProvider = new MasonryLayoutProvider(
+    2,
+    index => {
+      return 0;
+    },
+    (type, dim, index) => {
+      dim.height = index%2===0 ? 200 : 300;
+      dim.width = 200;
+    }
+  );
+
   return (
-    <Tabs.FlatList
-      data={emptyContacts ? [] : CONTACTS}
-      keyExtractor={(_, i) => String(i)}
-      renderItem={renderItem}
+    <Tabs.MasonryListImpl
+      dataProvider={dataProvider.cloneWithRows(CONTACTS)}
+      layoutProvider={layoutProvider}
+      rowRenderer={renderItem}
       ItemSeparatorComponent={ItemSeparator}
       ListEmptyComponent={ListEmptyComponent}
       // see https://github.com/software-mansion/react-native-reanimated/issues/1703
+      keyExtractor={(_, i) => String(i)}
       onRefresh={Platform.OS === 'ios' ? startRefreshing : undefined}
       refreshing={Platform.OS === 'ios' ? isRefreshing : undefined}
       nestedScrollEnabled={nestedScrollEnabled}

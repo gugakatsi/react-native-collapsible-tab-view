@@ -1,5 +1,7 @@
 import { FlatList, Platform, SectionList, I18nManager } from 'react-native'
+import { RecyclerListView } from "recyclerlistview/src"
 import Animated, { scrollTo } from 'react-native-reanimated'
+
 
 import { Ref, RefComponent } from './types'
 
@@ -10,6 +12,8 @@ export const ONE_FRAME_MS = 16
 export const { isRTL } = I18nManager
 
 export const IS_IOS = Platform.OS === 'ios'
+
+export const AnimatedMasonryList = Animated.createAnimatedComponent(RecyclerListView)
 
 export const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 

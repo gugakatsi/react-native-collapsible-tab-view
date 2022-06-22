@@ -1,5 +1,6 @@
 import { Container } from './Container'
 import { FlatList } from './FlatList'
+import MasonryListImpl from './MasonryList';
 import { Lazy } from './Lazy'
 import { MaterialTabBarProps, MaterialTabItemProps } from './MaterialTabBar'
 import { ScrollView } from './ScrollView'
@@ -34,11 +35,12 @@ export const Tabs = {
   Tab,
   Lazy,
   FlatList,
+  MasonryListImpl,
   ScrollView,
   SectionList,
 }
 
-export { Container, Tab, Lazy, FlatList, ScrollView, SectionList }
+export { Container, Tab, Lazy, FlatList, MasonryListImpl, ScrollView, SectionList }
 export {
   useCurrentTabScrollY,
   useHeaderMeasurements,

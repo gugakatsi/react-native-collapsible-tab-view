@@ -69,13 +69,14 @@
     "react-native-gesture-handler": "~1.6.0",
     "react-native-pager-view": "^5",
     "react-native-reanimated": "^2.3.0",
+    "recyclerlistview": "git+https://github.com/dwidc/recyclerlistview.git#masonry",
     "release-it": "^13.6.6",
     "ts-node": "^9.1.1",
     "typescript": "^3.9.7"
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*",
+    "react-native": "0.63.4",
     "react-native-pager-view": "*",
     "react-native-reanimated": ">=2.3.0"
   },
